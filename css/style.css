@@ -301,7 +301,7 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(24, 36, 55, 0) 0%, rgba(24, 36, 55, 0) 45%, rgba(24, 36, 55, 0.45) 68%, rgba(24, 36, 55, 0.82) 100%);
+  background: linear-gradient(180deg, rgba(24, 36, 55, 0) 0%, rgba(24, 36, 55, 0) 72%, rgba(24, 36, 55, 0.55) 88%, rgba(24, 36, 55, 0.85) 100%);
   z-index: -2;
 }
 
