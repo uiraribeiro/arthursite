@@ -38,9 +38,21 @@ Tipografia: Sora (títulos, `--font-display`) + Inter (corpo, `--font-body`), ca
 - `assets/icons/` — ícones SVG de redes sociais/streaming/UI (`fill="currentColor"` ou `stroke="currentColor"`).
 - `assets/ELEMENTO 01/`, `assets/ELEMENTO 02/`, `assets/logo/`, `assets/fotos/` — arquivos-fonte originais em alta resolução (logos vetoriais e fotos brutas do Instagram/ensaios). Estão no `.gitignore` porque já foram processados e não precisam ir para o deploy; mantenha-os localmente como fonte caso seja preciso reprocessar algo.
 
+Há duas variantes de logo em uso, não intercambiáveis: o **símbolo isolado** (`logo-branco.png`/`logo-azul.png`, de `ELEMENTO 01/`) usado no favicon e como marca d'água/ícone decorativo (hero, footer icons pequenos), e o **logotipo linear completo** com o wordmark "ARTHUR ENDY" (`logo-linear-branco.png`, de `assets/logo/`) usado no `.brand-logo` do header e no `.footer-logo` do footer.
+
 **Armadilha importante com os ícones SVG**: eles são referenciados via `<img src="...svg">`, não inline. Isso significa que `fill="currentColor"` dentro do SVG **não herda a cor do CSS** do elemento pai (limitação do `<img>` para conteúdo externo). Para tingir um ícone de branco sobre fundo escuro, usa-se o truque `filter: brightness(0) invert(1)` no CSS (ver `.header-social img`, `.footer-streaming img`, `.footer-contact img`, `.play-icon`, `.instagram-tile-icon img` em `style.css`). Se adicionar um novo ícone que precise de cor dinâmica, replicar esse padrão de filtro — não adicionar `color` esperando que funcione.
 
 Processamento de imagens novas (resize + WebP) é feito via `sips` (built-in do macOS) + `cwebp` (Homebrew), não há script automatizado — foi feito manualmente linha de comando durante a criação do site.
+
+## Hero
+
+O hero **não tem headline** (`<h1>`) — foi removido a pedido do cliente; o bloco de texto é só símbolo + `.hero-subtitle` + botões, centralizado verticalmente (`.hero { align-items: center }`) com `padding-top` grande em `.hero-content` para empurrar o conteúdo para a metade inferior da imagem.
+
+**Armadilha já resolvida, não reintroduzir**: `.hero-content` não deve levar a classe `.container`. As duas já foram usadas juntas antes e uma media query posterior (`@media (min-width:1280px) { .container {...} }`) zerava o `padding-bottom` do hero por ter a mesma especificidade e vir depois no arquivo. `.hero-content` tem seu próprio `max-width`/`padding` independentes de `.container`.
+
+A foto de fundo (`assets/img/hero.webp`) é uma silhueta em paisagem (pôr do sol), não um retrato de rosto — não há necessidade de recortar em torno de um rosto. O overlay (`.hero-overlay`) é um gradiente que só escurece o terço inferior da imagem (onde ficam texto/botões), deixando o céu e a silhueta vívidos; o `.hero-subtitle` também tem `text-shadow` para reforçar a legibilidade sem depender só do overlay. Se trocar a foto do hero, reavaliar os stops do gradiente (`72%`/`88%`/`100%`) e o `object-position` conforme a composição da nova imagem.
+
+`.scroll-indicator` é escondido em telas ≤639px (`display:none` no media query mobile) porque, em viewports curtos, ele colidia visualmente com os botões do hero.
 
 ## Estrutura de botões
 
