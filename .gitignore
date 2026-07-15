@@ -1,0 +1,11 @@
+# Sistema
+.DS_Store
+
+# Configuração local do Claude Code (não deve ir para o repositório)
+.claude/settings.local.json
+
+# Arquivos-fonte de design (originais em alta resolução, já processados em assets/img e assets/icons)
+assets/ELEMENTO 01/
+assets/ELEMENTO 02/
+assets/logo/
+assets/fotos/
